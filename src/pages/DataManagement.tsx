@@ -25,7 +25,6 @@ const DataManagement = () => {
   const [records, setRecords] = useState<AuditRecord[]>([]);
   const [filteredRecords, setFilteredRecords] = useState<AuditRecord[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeView, setActiveView] = useState<"overview" | "controls" | "anomalies" | "samples">("overview");
   const { toast } = useToast();
 
   const fetchRecords = async () => {
@@ -63,9 +62,14 @@ const DataManagement = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <DashboardHeader activeView={activeView} setActiveView={setActiveView} />
+      <DashboardHeader />
       
       <main className="container mx-auto px-6 py-8 space-y-8">
+        <div className="mb-6">
+          <h2 className="text-3xl font-bold tracking-tight">Data Management</h2>
+          <p className="text-muted-foreground">Upload, filter, and analyze your audit data</p>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
             <DataUpload onUploadComplete={handleUploadComplete} />
