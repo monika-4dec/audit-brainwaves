@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
 import { MetricsGrid } from "@/components/dashboard/MetricsGrid";
 import { RiskHeatmap } from "@/components/dashboard/RiskHeatmap";
@@ -11,6 +12,7 @@ import { RecentActivity } from "@/components/dashboard/RecentActivity";
 
 const Index = () => {
   const [activeView, setActiveView] = useState<"overview" | "controls" | "anomalies" | "samples">("overview");
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -28,7 +30,7 @@ const Index = () => {
             
             <MetricsGrid />
             
-            <QuickActions />
+            <QuickActions onViewChange={setActiveView} onNavigate={navigate} />
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="lg:col-span-2 space-y-6">

@@ -1,39 +1,41 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Upload, FileText, Search, TrendingUp } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
-export const QuickActions = () => {
-  const navigate = useNavigate();
+interface QuickActionsProps {
+  onViewChange: (view: "overview" | "controls" | "anomalies" | "samples") => void;
+  onNavigate: (path: string) => void;
+}
 
+export const QuickActions = ({ onViewChange, onNavigate }: QuickActionsProps) => {
   const actions = [
     {
       title: "Upload Data",
       description: "Import audit records and evidence",
       icon: Upload,
       color: "text-primary",
-      action: () => navigate("/data"),
+      action: () => onNavigate("/data"),
     },
     {
       title: "Generate Report",
       description: "Create automated audit summary",
       icon: FileText,
       color: "text-success",
-      action: () => navigate("/data"),
+      action: () => onNavigate("/data"),
     },
     {
       title: "Review Samples",
       description: "Analyze high-risk transactions",
       icon: Search,
       color: "text-warning",
-      action: () => {},
+      action: () => onViewChange("samples"),
     },
     {
       title: "View Trends",
       description: "Explore risk patterns over time",
       icon: TrendingUp,
       color: "text-primary",
-      action: () => {},
+      action: () => onViewChange("anomalies"),
     },
   ];
 
