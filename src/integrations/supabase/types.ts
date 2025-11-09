@@ -14,7 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      audit_records: {
+        Row: {
+          ai_risk_score: number | null
+          amount: number | null
+          category: string
+          control_gaps: string[] | null
+          created_at: string
+          description: string | null
+          file_name: string
+          id: string
+          metadata: Json | null
+          risk_level: string
+          status: string | null
+          transaction_date: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_risk_score?: number | null
+          amount?: number | null
+          category: string
+          control_gaps?: string[] | null
+          created_at?: string
+          description?: string | null
+          file_name: string
+          id?: string
+          metadata?: Json | null
+          risk_level: string
+          status?: string | null
+          transaction_date?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_risk_score?: number | null
+          amount?: number | null
+          category?: string
+          control_gaps?: string[] | null
+          created_at?: string
+          description?: string | null
+          file_name?: string
+          id?: string
+          metadata?: Json | null
+          risk_level?: string
+          status?: string | null
+          transaction_date?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -1,6 +1,9 @@
-import { Brain, Shield, Activity, Database } from "lucide-react";
+import { Brain, Shield, Activity, Database, Upload, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 interface DashboardHeaderProps {
   activeView: "overview" | "controls" | "anomalies" | "samples";
@@ -8,6 +11,15 @@ interface DashboardHeaderProps {
 }
 
 export const DashboardHeader = ({ activeView, setActiveView }: DashboardHeaderProps) => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    toast({ title: "Logged out successfully" });
+    navigate("/auth");
+  };
+
   return (
     <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
       <div className="container mx-auto px-6 py-4">
@@ -22,9 +34,16 @@ export const DashboardHeader = ({ activeView, setActiveView }: DashboardHeaderPr
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={() => navigate("/data")} className="gap-2">
+              <Upload className="h-4 w-4" />
+              Data Management
+            </Button>
             <div className="px-3 py-1.5 rounded-full bg-success/10 border border-success/20">
               <span className="text-xs font-medium text-success">All Systems Operational</span>
             </div>
+            <Button variant="ghost" size="sm" onClick={handleLogout} className="gap-2">
+              <LogOut className="h-4 w-4" />
+            </Button>
           </div>
         </div>
 
